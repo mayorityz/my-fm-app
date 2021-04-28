@@ -92,7 +92,7 @@ export default function Layout({ children, title }) {
                   <div className="col-6">
                     <input
                       className="form-control input-lg"
-                      placeholder="Email Address"
+                      placeholder="Email Address ..."
                     />
                   </div>
                   <div className="col-6">
