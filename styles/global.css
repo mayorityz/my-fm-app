@@ -11515,3 +11515,39 @@ html.ie.gecko body.modal-open {
 .footer_container ul li a:hover {
     color: purple;
 }
+
+.show_menu {
+    background-color: #000000b3;
+    color: #fff;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    z-index: 40;
+}
+
+.show_menu ul {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    flex-direction: column;
+    list-style: none;
+    margin-top: 200px;
+    text-align: center;
+}
+
+.show_menu ul li a {
+    color: #fff;
+    font-family: 'Bebas Neue', cursive;
+    font-size: 40px;
+    line-height: 40px;
+    margin-bottom: 20px;
+    margin-left: -30px;
+}
+
+.close_nav_menu {
+    position: absolute;
+    right: 20px;
+    font-size: 20px;
+    color: #fff;
+}
