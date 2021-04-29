@@ -70,12 +70,12 @@ export default function Navigation() {
                 class="tt-account-btn toggle-mobile-menu"
                 style={{ padding: "1" }}
               >
-                <a href="page-login.html" class="btn btn-primary">
-                  Log in
-                </a>
-                <a href="page-signup.html" class="btn btn-secondary">
-                  Sign up
-                </a>
+                <Link href="/pages/Login">
+                  <a class="btn btn-primary">Log in</a>
+                </Link>
+                <Link href="/register">
+                  <a class="btn btn-secondary">Sign up</a>
+                </Link>
               </div>
               <div className="tt-user-info d-flex justify-content-center">
                 <div className="tt-desktop-menu">
