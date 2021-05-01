@@ -5,9 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start -p $PORT",
+    "start": "node ./server/app.js  && next dev --port=$PORT",
     "tester": "node ./server/app.js && next dev -p 3000",
-    "save": "node ./server/app.js  && next dev --port=$PORT"
+    "save": "next start -p $PORT"
   },
   "dependencies": {
     "cors": "^2.8.5",
