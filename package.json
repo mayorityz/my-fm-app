@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start -p $PORT"
+    "start": "node ./server/app.js  && next dev --port=$PORT",
+    "tester": "node ./server/app.js && next dev",
+    "save": "next start -p $PORT"
   },
   "dependencies": {
     "next": "^10.0.0",
