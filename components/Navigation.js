@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import localStorage from "./../helpers/localStorage";
+import { useRouter } from "next/router";
 
 import {
   AiOutlineHome,
@@ -9,11 +11,25 @@ import {
   AiOutlineUserAdd,
   AiOutlineMenu,
   AiOutlineClose,
+  AiOutlineLogout,
+  AiOutlinePlusSquare,
+  AiOutlineMail,
 } from "react-icons/ai";
 
 export default function Navigation() {
+  const router = useRouter();
   const [toggle, setToggle] = useState(false);
   let drawer = () => setToggle(!toggle);
+
+  const logout = () => {
+    try {
+      window.localStorage.removeItem("is_logged_status");
+      router.push("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <nav className="panel-menu mobile-main-menu" id="mobile-menu">
@@ -67,14 +83,14 @@ export default function Navigation() {
             </div>
             <div className="col-auto ml-auto">
               <div
-                class="tt-account-btn toggle-mobile-menu"
+                className="tt-account-btn toggle-mobile-menu"
                 style={{ padding: "1" }}
               >
                 <Link href="/pages/Login">
-                  <a class="btn btn-primary">Log in</a>
+                  <a className="btn btn-primary">Log in</a>
                 </Link>
                 <Link href="/register">
-                  <a class="btn btn-secondary">Sign up</a>
+                  <a className="btn btn-secondary">Sign up</a>
                 </Link>
               </div>
               <div className="tt-user-info d-flex justify-content-center">
@@ -86,25 +102,70 @@ export default function Navigation() {
                           <span>About Us</span>
                         </a>
                       </li>
-                      <li>
-                        <Link href="/pages/Login">
-                          <a>
-                            <span>
-                              {" "}
-                              <AiOutlineLogin /> Login
-                            </span>
-                          </a>
-                        </Link>
-                      </li>
-                      <li>
-                        <Link href="/register">
-                          <a>
-                            <span>
-                              <AiOutlineUserAdd /> Register
-                            </span>
-                          </a>
-                        </Link>
-                      </li>
+                      {localStorage() === "isLoggedIn" ? (
+                        <>
+                          <li>
+                            <Link href="/pages/Login">
+                              <a>
+                                <span>
+                                  {" "}
+                                  <AiOutlineLogin /> My Account
+                                </span>
+                              </a>
+                            </Link>
+                          </li>
+                          <li>
+                            <Link href="/pages/Login">
+                              <a>
+                                <span>
+                                  {" "}
+                                  <AiOutlinePlusSquare /> New Post
+                                </span>
+                              </a>
+                            </Link>
+                          </li>
+                          <li>
+                            <Link href="/pages/Login">
+                              <a>
+                                <span>
+                                  {" "}
+                                  <AiOutlineMail /> Inbox
+                                </span>
+                              </a>
+                            </Link>
+                          </li>
+                          <li>
+                            <a onClick={logout}>
+                              <span>
+                                {" "}
+                                <AiOutlineLogout /> Logout
+                              </span>
+                            </a>
+                          </li>
+                        </>
+                      ) : (
+                        <>
+                          <li>
+                            <Link href="/pages/Login">
+                              <a>
+                                <span>
+                                  {" "}
+                                  <AiOutlineLogin /> Login
+                                </span>
+                              </a>
+                            </Link>
+                          </li>
+                          <li>
+                            <Link href="/register">
+                              <a>
+                                <span>
+                                  <AiOutlineUserAdd /> Register
+                                </span>
+                              </a>
+                            </Link>
+                          </li>
+                        </>
+                      )}
                     </ul>
                   </nav>
                 </div>

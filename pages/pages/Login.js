@@ -1,107 +1,125 @@
+import { useState } from "react";
 import Layout from "../../components/MainLayout/Layout";
+import Image from "next/image";
+import Link from "next/link";
+import axios from "axios";
+import { useRouter } from "next/router";
 
 export default function Login() {
+  const router = useRouter();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [notification, setNotification] = useState("");
+
+  const login = async (e) => {
+    e.preventDefault();
+    setNotification("Checking Your Credentials...");
+    try {
+      const query = await axios.post(
+        `http://localhost:3300/api/v1/userauth/user-login`,
+        {
+          username,
+          password,
+        },
+        { withCredentials: true }
+      );
+      if (query.data.status !== "failed") {
+        window.localStorage.setItem("is_logged_status", true);
+        router.push("/");
+      } else setNotification(query.data.message);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
   return (
     <Layout title="Yoruba Community Online  : Login">
-      <div class="container">
-        <div class="tt-loginpages-wrapper">
-          <div class="tt-loginpages">
-            <a href="index-2.html" class="tt-block-title">
-              <img src="/images/logo.png" alt="" />
-              <div class="tt-title">Welcome to "Yoruba Community Online"</div>
-              <div class="tt-description">
-                Log into your account to unlock true power of community.
-              </div>
-            </a>
-            <form class="form-default">
-              <div class="form-group">
-                <label for="loginUserName">Username</label>
+      <div className="container">
+        <div className="tt-loginpages-wrapper">
+          <div className="tt-loginpages">
+            <Link href="/">
+              <a className="tt-block-title">
+                <Image
+                  src="/yoruba_logo.png"
+                  alt="site logo"
+                  width="100"
+                  height="50"
+                />
+                <div className="tt-title">
+                  Welcome to "Yoruba Community Online"
+                </div>
+                <div className="tt-description">
+                  Log into your account to unlock true power of community.
+                </div>
+              </a>
+            </Link>
+            <form className="form-default" onSubmit={login}>
+              <div className="form-group">
+                <label for="loginUserName">Username *</label>
                 <input
                   type="text"
                   name="name"
-                  class="form-control"
+                  className="form-control"
                   id="loginUserName"
-                  placeholder="azyrusmax"
+                  placeholder="Enter Your Username *"
+                  onChange={({ target: { value } }) => setUsername(value)}
                 />
               </div>
-              <div class="form-group">
+              <div className="form-group">
                 <label for="loginUserPassword">Password</label>
                 <input
                   type="password"
                   name="name"
-                  class="form-control"
+                  className="form-control"
                   id="loginUserPassword"
-                  placeholder="************"
+                  placeholder="Enter Your Password *"
+                  onChange={({ target: { value } }) => setPassword(value)}
                 />
               </div>
-              <div class="row">
-                <div class="col">
-                  <div class="form-group">
-                    <div class="checkbox-group">
+              <div className="row">
+                <div className="col">
+                  <div className="form-group">
+                    <div className="checkbox-group">
                       <input
                         type="checkbox"
                         id="settingsCheckBox01"
                         name="checkbox"
                       />
                       <label for="settingsCheckBox01">
-                        <span class="check"></span>
-                        <span class="box"></span>
-                        <span class="tt-text">Remember me</span>
+                        <span className="check"></span>
+                        <span className="box"></span>
+                        <span className="tt-text">Remember me</span>
                       </label>
                     </div>
                   </div>
                 </div>
-                <div class="col ml-auto text-right">
-                  <a href="#" class="tt-underline">
+                <div className="col ml-auto text-right">
+                  <a href="#" className="tt-underline">
                     Forgot Password
                   </a>
                 </div>
               </div>
-              <div class="form-group">
-                <a href="#" class="btn btn-secondary btn-block">
-                  Log in
-                </a>
-              </div>
-              <p>Or login with social network</p>
-              <div class="row">
-                <div class="col">
-                  <div class="form-group">
-                    <a href="#" class="btn btn-color01 btn-secondary btn-block">
-                      <i>
-                        <svg class="icon">
-                          <use xlinkHref="#facebook-f-brands"></use>
-                        </svg>
-                      </i>
-                      Facebook
-                    </a>
+              <div className="form-group">
+                <button className="btn btn-secondary btn-block">Log in</button>
+                {notification ? (
+                  <div className="alert alert-secondary text-center">
+                    {notification}
                   </div>
-                </div>
-                <div class="col">
-                  <div class="form-group">
-                    <a href="#" class="btn btn-color02 btn-block">
-                      <i>
-                        <svg class="icon">
-                          <use xlinkHref="#twitter-brands"></use>
-                        </svg>
-                      </i>
-                      Twitter
-                    </a>
-                  </div>
-                </div>
+                ) : null}
               </div>
+
               <p>
                 Don’t have an account?{" "}
-                <a href="#" class="tt-underline">
+                <a href="#" className="tt-underline">
                   Signup here
                 </a>
               </p>
-              <div class="tt-notes">
-                By Logging in, signing in or continuing, I agree to Forum19’s{" "}
-                <a href="#" class="tt-underline">
+              <div className="tt-notes">
+                By Logging in, signing in or continuing, I agree to our{" "}
+                <a href="#" className="tt-underline">
                   Terms of Use
                 </a>{" "}
                 and{" "}
-                <a href="#" class="tt-underline">
+                <a href="#" className="tt-underline">
                   Privacy Policy.
                 </a>
               </div>

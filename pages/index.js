@@ -1,5 +1,7 @@
 import Layout from "../components/MainLayout/Layout";
 import Link from "next/link";
+import localStorage from "./../helpers/localStorage";
+
 export default function Home() {
   return (
     <>
@@ -472,32 +474,35 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="tt-topic-list">
-          <div className="tt-item tt-item-popup">
-            <div className="tt-col-avatar">
-              <svg className="tt-icon">
-                <use xlinkHref="#icon-ava-f"></use>
-              </svg>
-            </div>
-            <div className="tt-col-message">
-              Looks like you are new here. Register for free, learn and
-              contribute.
-            </div>
-            <div className="tt-col-btn">
-              <button type="button" className="btn btn-primary">
-                Log in
-              </button>
-              <button type="button" className="btn btn-secondary">
-                Sign up
-              </button>
-              <button type="button" className="btn-icon">
+        {localStorage() === "isLoggedIn" ? null : (
+          <div className="tt-topic-list">
+            <div className="tt-item tt-item-popup">
+              <div className="tt-col-avatar">
                 <svg className="tt-icon">
-                  <use xlinkHref="#icon-cancel"></use>
+                  <use xlinkHref="#icon-ava-f"></use>
                 </svg>
-              </button>
+              </div>
+              <div className="tt-col-message">
+                Looks like you are new here. Register for free, learn and
+                contribute.
+              </div>
+              <div className="tt-col-btn">
+                <Link href="/pages/Login">
+                  <a className="btn btn-primary">Log in</a>
+                </Link>
+                <Link href="/register">
+                  <a className="btn btn-secondary">Sign up</a>
+                </Link>
+
+                <button type="button" className="btn-icon">
+                  <svg className="tt-icon">
+                    <use xlinkHref="#icon-cancel"></use>
+                  </svg>
+                </button>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </Layout>
     </>
   );
