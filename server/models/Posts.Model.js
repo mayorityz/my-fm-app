@@ -8,9 +8,13 @@ const postSchema = new DB.Schema({
   },
   title: String,
   content: String,
-  replays: { type: Array, default: [] },
+  category: String,
+  replies: { type: Array, default: [] },
+  postSlug: String,
+  likes: { type: Array, default: [] },
+  dislikes: { type: Array, default: [] },
 });
 
-const Posts = DB.model("Accounts", postSchema);
+const Posts = DB.model("posts", postSchema);
 
 module.exports = Posts;

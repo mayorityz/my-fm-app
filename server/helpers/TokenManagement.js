@@ -11,4 +11,18 @@ exports.generateToken = (data) => {
   }
 };
 
-exports.verifyToken = (data) => {};
+exports.verifyToken = (token) => {
+  try {
+    jwt.verify(token, "privateKeyTokenGenerateHere", (err, result) => {
+      // if (err === null) {
+      //   return new Error();
+      // } else {
+      //   return result;
+      // }
+      console.log(result);
+      return result;
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
